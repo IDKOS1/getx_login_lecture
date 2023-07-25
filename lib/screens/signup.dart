@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:getx_login_lecture/controller/auth_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+
+import '../controller/auth_controller.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({Key? key}) : super(key: key);

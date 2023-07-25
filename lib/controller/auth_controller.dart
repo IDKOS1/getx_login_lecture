@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_login_lecture/screens/login.dart';
-import 'package:getx_login_lecture/screens/welcome.dart';
-import 'package:flutter/material.dart';
+
+import '../screens/welcome.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -10,7 +13,7 @@ class AuthController extends GetxController {
   FirebaseAuth authentication = FirebaseAuth.instance;
 
   @override
-  void onReady() {
+  void onReady(){
     super.onReady();
     _user = Rx<User?>(authentication.currentUser);
     _user.bindStream(authentication.userChanges());
@@ -18,31 +21,30 @@ class AuthController extends GetxController {
   }
 
   _moveToPage(User? user) {
-    if (user == null) {
+    if(user == null) {
       Get.offAll(() => LoginPage());
-    } else {
+    }else {
       Get.offAll(() => WelcomePage());
     }
   }
 
   void register(String email, password) async {
-    try {
+    try{
       await authentication.createUserWithEmailAndPassword(
           email: email, password: password);
-    } catch (e) {
+    }catch(e){
       Get.snackbar(
         "Error message",
         "User message",
         backgroundColor: Colors.red,
         snackPosition: SnackPosition.BOTTOM,
-        titleText: Text(
-          "Registration is failed",
+        titleText: Text("Registration is failed",
           style: TextStyle(color: Colors.white),
         ),
         messageText: Text(
           e.toString(),
           style: TextStyle(color: Colors.white),
-        ),
+        )
       );
     }
   }
